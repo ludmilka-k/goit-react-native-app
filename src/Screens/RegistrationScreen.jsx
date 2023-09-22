@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import bgImage from '../../assets/photo-bg.jpg';
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -7,65 +8,114 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView,
+    Keyboard,
+    Platform,
 } from 'react-native';
 
 const RegistrationScreen = () => {
+    const [login, setLogin] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
+    const [isFocusedInput, setIsFocusedInput] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleRegistration = () => {
+        const formData = {
+            login,
+            email,
+            password,
+        };
+        console.log('Registration:', formData);
+        setLogin('');
+        setEmail('');
+        setPassword('');
+        setIsFocusedInput(null)
+        setShowPassword(false);
+    };
+
+    const handleLogin = () => {
+        console.log('Redirect to Login');
+    };
 
     return (
-        <View style={styles.container}>
-            <ImageBackground style={styles.bgImage} source={bgImage}>
-                <View style={styles.registerBox}>
-                    <View style={styles.avatar}>
-                        <TouchableOpacity style={styles.plusAvatar}>
-                            <AntDesign name="pluscircleo" size={24} color="orange"/>
-                        </TouchableOpacity>
-                    </View>
-                    <Text style={styles.title}>Реєстрація</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Логін"
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView style={styles.flexContainer}
+                                  behavior={Platform.OS === "ios" ? "padding" : "height"}
+                                  keyboardVerticalOffset={-200}
+                                  enabled
+            >
+                <View style={styles.container}>
+                    <ImageBackground style={styles.bgImage} source={bgImage}>
+                        <View style={styles.registerBox}>
+                            <View style={styles.avatar}>
+                                <TouchableOpacity style={styles.plusAvatar}>
+                                    <AntDesign name="pluscircleo" size={24} color="orange"/>
+                                </TouchableOpacity>
+                            </View>
+                            <Text style={styles.title}>Реєстрація</Text>
+                            <TextInput
+                                style={[styles.input, isFocusedInput === "login" && styles.isFocus]}
+                                placeholder="Логін"
+                                value={login}
+                                onChangeText={setLogin}
+                                onFocus={() => setIsFocusedInput("login")}
+                                onBlur={() => setIsFocusedInput(null)}
+                            />
+                            <TextInput
+                                style={[styles.input, isFocusedInput === "email" && styles.isFocus]}
+                                placeholder="Адреса електронної пошти"
+                                value={email}
+                                onChangeText={setEmail}
+                                onFocus={() => setIsFocusedInput("email")}
+                                onBlur={() => setIsFocusedInput(null)}
+                                autoCapitalize="none"
+                            />
+                            <View style={styles.passwordWrapper}>
+                                <TextInput
+                                    style={[styles.input, isFocusedInput === "password" && styles.isFocus]}
+                                    placeholder="Пароль"
+                                    value={password}
+                                    onChangeText={setPassword}
+                                    onFocus={() => setIsFocusedInput("password")}
+                                    onBlur={() => setIsFocusedInput(null)}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                    secureTextEntry={!showPassword}
+                                />
+                                <TouchableOpacity activeOpacity={0.5}
+                                                  onPress={() => setShowPassword(!showPassword)}>
+                                    <Text style={[styles.showHideText, styles.defaultText]}>
+                                        {showPassword ? "Приховати" : "Показати"}
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity style={styles.button}
+                                              onPress={handleRegistration}>
+                                <Text style={styles.invertText}>Зареєструватися</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity  onPress={handleLogin}>
+                                <Text style={styles.defaultText}>Вже є аккаунт? Увійти</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Адреса електронної пошти"
-
-                    />
-                    <View style={styles.passwordWrapper}>
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Пароль"
-
-                        />
-                        <TouchableOpacity
-                            activeOpacity={0.5}>
-                            <Text style={[styles.showHideText, styles.defaultText]}>Показати
-                                {/*{showPassword ? "Приховати" : "Показати"}*/}
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity style={styles.btnRegister}>
-                        <Text style={styles.invertText}>Зареєструватися</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        // style={styles.btnLogin}
-                        >
-                        <Text style={styles.defaultText}>Вже є аккаунт? Увійти</Text>
-                    </TouchableOpacity>
-
+                    </ImageBackground>
                 </View>
-
-            </ImageBackground>
-        </View>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     )
 };
 
 const styles= StyleSheet.create({
+    flexContainer: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         position: "relative",
+        // fontFamily: 'Roboto-Bold',
     },
     bgImage: {
         flex: 1,
@@ -149,7 +199,7 @@ const styles= StyleSheet.create({
         color: "#FFFFFF",
         textAlign: "center",
     },
-    btnRegister: {
+    button: {
         borderRadius: 50,
         backgroundColor: "#FF6C00",
         marginHorizontal: 16,
@@ -157,7 +207,10 @@ const styles= StyleSheet.create({
         marginBottom: 16,
         paddingVertical: 16,
     },
-
+    isFocus: {
+        borderColor: '#FF6C00',
+        backgroundColor: '#FFFFFF',
+    },
 });
 
 export default RegistrationScreen;
