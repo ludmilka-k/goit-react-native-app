@@ -85,14 +85,17 @@ const RegistrationScreen = () => {
                                     autoCorrect={false}
                                     secureTextEntry={!showPassword}
                                 />
-                                <TouchableOpacity activeOpacity={0.5}
-                                                  onPress={() => setShowPassword(!showPassword)}>
-                                    <Text style={[styles.showHideText, styles.defaultText]}>
-                                        {showPassword ? "Приховати" : "Показати"}
-                                    </Text>
-                                </TouchableOpacity>
+                                <View style={styles.showHideContainer}>
+                                    <TouchableOpacity activeOpacity={0.5}
+                                                      style={styles.showHideButton}
+                                                      onPress={() => setShowPassword(!showPassword)}>
+                                        <Text style={styles.defaultText}>
+                                            {showPassword ? "Приховати" : "Показати"}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <TouchableOpacity style={styles.button}
+                            <TouchableOpacity style={styles.RegistrationBtn}
                                               onPress={handleRegistration}>
                                 <Text style={styles.invertText}>Зареєструватися</Text>
                             </TouchableOpacity>
@@ -178,11 +181,14 @@ const styles= StyleSheet.create({
     passwordWrapper: {
         position: 'relative',
     },
-    showHideText: {
+    showHideContainer: {
         position: 'absolute',
-        right: 32,
-        bottom: 30,
-
+        right: 0,
+        bottom: 32,
+    },
+    showHideButton: {
+        // borderWidth: 1,
+        paddingHorizontal: 16,
     },
     defaultText: {
         fontFamily: 'Roboto-Bold',
@@ -199,7 +205,7 @@ const styles= StyleSheet.create({
         color: "#FFFFFF",
         textAlign: "center",
     },
-    button: {
+    RegistrationBtn: {
         borderRadius: 50,
         backgroundColor: "#FF6C00",
         marginHorizontal: 16,
