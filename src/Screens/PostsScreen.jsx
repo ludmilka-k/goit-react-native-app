@@ -24,18 +24,18 @@ const PostsScreen = () => {
 const styles = StyleSheet.create({
     innerContainer: {
         flex: 1,
-        width: '100%',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
+        width: "100%",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
         paddingTop: 32,
         paddingHorizontal: 16,
-        backgroundColor: '#FFFFFF',
-        borderTopColor: '#000000',
+        backgroundColor: "#FFFFFF",
+        borderTopColor: "#000000",
     },
     user: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
         gap: 8,
     },
     avatar: {
@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
     },
     userName: {
         fontSize: 13,
-        fontWeight: '500',
+        fontWeight: "500",
         lineHeight: 15,
         color: '#212121',
     },
     userEmail: {
-        fontWeight: '400',
+        fontWeight: "400",
         fontSize: 11,
         lineHeight: 13,
         color: '#212121',

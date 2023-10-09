@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import bgImage from '../../assets/photo-bg.jpg';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from "react";
+import bgImage from "../../assets/photo-bg.jpg";
+import { AntDesign } from "@expo/vector-icons";
 import {
     View,
     ImageBackground,
@@ -12,9 +12,12 @@ import {
     KeyboardAvoidingView,
     Keyboard,
     Platform,
-} from 'react-native';
+} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
 const RegistrationScreen = () => {
+    const navigation = useNavigation();
+
     const [login, setLogin] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,16 +31,14 @@ const RegistrationScreen = () => {
             email,
             password,
         };
-        console.log('Registration:', formData);
+        console.log("Registration:", formData);
         setLogin('');
         setEmail('');
         setPassword('');
         setIsFocusedInput(null)
         setShowPassword(false);
-    };
 
-    const handleLogin = () => {
-        console.log('Redirect to Login');
+        navigation.navigate("BottomNavigator");
     };
 
     return (
@@ -95,11 +96,11 @@ const RegistrationScreen = () => {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.RegistrationBtn}
+                            <TouchableOpacity style={styles.registrationBtn}
                                               onPress={handleRegistration}>
                                 <Text style={styles.invertText}>Зареєструватися</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity  onPress={handleLogin}>
+                            <TouchableOpacity  onPress={() => navigation.navigate("LoginScreen")}>
                                 <Text style={styles.defaultText}>Вже є аккаунт? Увійти</Text>
                             </TouchableOpacity>
                         </View>
@@ -118,15 +119,14 @@ const styles= StyleSheet.create({
     container: {
         flex: 1,
         position: "relative",
-        // fontFamily: 'Roboto-Bold',
     },
     bgImage: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        justifyContent: "flex-end",
+        alignItems: "center",
     },
     registerBox: {
-        width: '100%',
+        width: "100%",
         backgroundColor: "#FFFFFF",
         borderTopRightRadius: 25,
         borderTopLeftRadius: 25,
@@ -164,7 +164,7 @@ const styles= StyleSheet.create({
         color: "#212121",
     },
     input: {
-        width: '100%',
+        width: "100%",
         height: 50,
         marginBottom: 16,
         padding: 16,
@@ -173,16 +173,16 @@ const styles= StyleSheet.create({
         borderColor: "#E8E8E8",
         backgroundColor: "#F6F6F6",
 
-        fontFamily: 'Roboto-Regular',
+        fontFamily: "Roboto-Regular",
         fontSize: 16,
         fontWeight: "700",
         lineHeight: 19,
     },
     passwordWrapper: {
-        position: 'relative',
+        position: "relative",
     },
     showHideContainer: {
-        position: 'absolute',
+        position: "absolute",
         right: 0,
         bottom: 32,
     },
@@ -191,7 +191,7 @@ const styles= StyleSheet.create({
         paddingHorizontal: 16,
     },
     defaultText: {
-        fontFamily: 'Roboto-Bold',
+        fontFamily: "Roboto-Bold",
         fontSize: 16,
         lineHeight: 19,
         color: '#1B4371',
@@ -205,7 +205,7 @@ const styles= StyleSheet.create({
         color: "#FFFFFF",
         textAlign: "center",
     },
-    RegistrationBtn: {
+    registrationBtn: {
         borderRadius: 50,
         backgroundColor: "#FF6C00",
         marginHorizontal: 16,

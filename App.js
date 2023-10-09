@@ -1,9 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import RootNavigator from './src/routes/RootNavigator';
 import { useFonts } from 'expo-font';
-import { StyleSheet, View } from 'react-native';
-// import RegistrationScreen from './src/Screens/RegistrationScreen';
-// import LoginScreen from './src/Screens/LoginScreen';
-import PostsScreen from "./src/Screens/PostsScreen";
 
 export default function App() {
     const [fontsLoaded] = useFonts({
@@ -18,18 +17,10 @@ export default function App() {
 
 
     return (
-    <View style={styles.flexContainer}>
-      <StatusBar style="auto" />
-      {/*<RegistrationScreen />*/}
-      {/*<LoginScreen />*/}
-       <PostsScreen/>
-    </View>
+        <NavigationContainer>
+            <RootNavigator />
+        </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  flexContainer: {
-    flex: 1,
-  },
-});
 

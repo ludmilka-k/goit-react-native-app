@@ -1,4 +1,4 @@
-import bgImage from '../../assets/photo-bg.jpg';
+import bgImage from "../../assets/photo-bg.jpg";
 import {
     View,
     ImageBackground,
@@ -10,10 +10,13 @@ import {
     KeyboardAvoidingView,
     Keyboard,
     Platform,
-} from 'react-native';
+} from "react-native";
 import {useState} from "react";
+import { useNavigation } from "@react-navigation/native";
 
 const LoginScreen = () => {
+    const navigation = useNavigation();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -25,16 +28,18 @@ const LoginScreen = () => {
             email,
             password,
         };
-        console.log('Registration:', formData);
+        console.log("Login:", formData);
         setEmail('');
         setPassword('');
         setIsFocusedInput(null)
         setShowPassword(false);
+
+        navigation.navigate("BottomNavigator");
     };
 
-    const handleRegistration = () => {
-        console.log('Redirect to Registration');
-    };
+    // const handleRegistration = () => {
+    //     console.log('Redirect to Registration');
+    // };
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -82,7 +87,7 @@ const LoginScreen = () => {
                                 <Text style={styles.invertText}>Увійти</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity onPress={handleRegistration}>
+                            <TouchableOpacity onPress={() => navigation.navigate("RegistrationScreen")}>
                                 <Text style={styles.defaultText}>
                                     Немає акаунту? <Text style={styles.underline}>Зареєструватися</Text>
                                 </Text>
@@ -106,11 +111,11 @@ const styles = StyleSheet.create({
     },
     bgImage: {
         flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
+        justifyContent: "flex-end",
+        alignItems: "center",
     },
     loginBox: {
-        width: '100%',
+        width: "100%",
         backgroundColor: "#FFFFFF",
         borderTopRightRadius: 25,
         borderTopLeftRadius: 25,
@@ -119,7 +124,7 @@ const styles = StyleSheet.create({
         paddingBottom: 78,
     },
     title: {
-        fontFamily: 'Roboto-Medium',
+        fontFamily: "Roboto-Medium",
         fontSize: 30,
         textAlign: "center",
         fontWeight: "500",
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
         color: "#212121",
     },
     input: {
-        width: '100%',
+        width: "100%",
         height: 50,
         marginBottom: 16,
         padding: 16,
@@ -139,16 +144,16 @@ const styles = StyleSheet.create({
         borderColor: "#E8E8E8",
         backgroundColor: "#F6F6F6",
 
-        fontFamily: 'Roboto-Regular',
+        fontFamily: "Roboto-Regular",
         fontSize: 16,
         fontWeight: "700",
         lineHeight: 19,
     },
     passwordWrapper: {
-        position: 'relative',
+        position: "relative",
     },
     showHideContainer: {
-        position: 'absolute',
+        position: "absolute",
         right: 0,
         bottom: 32,
     },
@@ -157,7 +162,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     defaultText: {
-        fontFamily: 'Roboto-Regular',
+        fontFamily: "Roboto-Regular",
         fontSize: 16,
         lineHeight: 19,
         color: '#1B4371',
@@ -183,8 +188,8 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
     },
     isFocus: {
-        borderColor: '#FF6C00',
-        backgroundColor: '#FFFFFF',
+        borderColor: "#FF6C00",
+        backgroundColor: "#FFFFFF",
     },
 });
 
